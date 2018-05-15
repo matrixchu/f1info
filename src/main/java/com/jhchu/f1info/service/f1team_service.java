@@ -16,4 +16,8 @@ public class f1team_service {
         return f1teamdao.queryf1teamByTeamName(team_name);
     }
 
+    public f1team insertF1TeamInfo(f1team f1teamInfo){
+        return f1teamdao.save(f1teamInfo);
+    }
+
 }

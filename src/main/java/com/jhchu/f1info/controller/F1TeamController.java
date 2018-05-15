@@ -1,5 +1,6 @@
 package com.jhchu.f1info.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +23,21 @@ public class F1TeamController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "team_name", paramType = "query", dataTypeClass = String.class, required = false, value = "team_name") })
     @ApiResponse(code = 200, message = "接口有返回", response = List.class)
-    @RequestMapping(method = RequestMethod.GET, value = "/teaminfo")
+    @RequestMapping(method = RequestMethod.GET, value = "/info")
     public List<f1team> getF1teamInfo( @RequestParam(name = "team_name") String team_name){
         return f1teamService.getF1TeamInfoByName(team_name);
+    }
+
+    @ApiOperation("增加F1车队信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name ="f1TeamStr",paramType = "insert", dataTypeClass = String.class,required = true,value = "f1TeamStr")
+    })
+    @ApiResponse(code = 200,message = "接口有返回",response = f1team.class)
+    @RequestMapping(method = RequestMethod.POST,value = "/add")
+    public f1team insertF1TeamInfo( @RequestParam(name = "f1TeamStr") String f1TeamStr){
+        JSONObject f1TeamInfoObj = JSONObject.parseObject(f1TeamStr);
+        f1team f1TeamInfo = f1TeamInfoObj.toJavaObject(f1team.class);
+        return f1teamService.insertF1TeamInfo(f1TeamInfo);
     }
 
 }
