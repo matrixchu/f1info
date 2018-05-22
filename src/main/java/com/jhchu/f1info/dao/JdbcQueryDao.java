@@ -31,7 +31,7 @@ public class JdbcQueryDao {
      */
     public List<Map<String,String>> getTableColumnInfo(String tableName){
 
-       String sqlStr = "select column_name, column_comment from information_schema.columns where table_schema ='f1infodb' and table_name = ?";
+       String sqlStr = "select column_name, column_comment from information_schema.columns where table_schema ='f1infodb' and table_name = ? order by ordinal_position";
 
        String[] params = new String[1];
 
