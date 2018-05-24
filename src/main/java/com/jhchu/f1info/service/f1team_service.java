@@ -1,6 +1,7 @@
 package com.jhchu.f1info.service;
 
 import com.jhchu.f1info.dao.JdbcQueryDao;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.jhchu.f1info.dao.f1teamDao;
@@ -20,8 +21,12 @@ public class f1team_service {
         return f1teamdao.queryf1teamByTeamName(team_name);
     }
 
-    public List<f1team> getAllF1TeamInfo(){
-        return f1teamdao.queryAllf1team();
+    public List<f1team> getAllF1TeamInfo(String isCur){
+        if(StringUtils.isNotBlank(isCur)) {
+            return f1teamdao.queryAllf1teamByIsCur(isCur);
+        }else{
+            return f1teamdao.queryAllf1team();
+        }
     }
 
     public f1team insertF1TeamInfo(f1team f1teamInfo){

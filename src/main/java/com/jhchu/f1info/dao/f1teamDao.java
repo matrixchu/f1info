@@ -17,6 +17,9 @@ public interface f1teamDao extends PagingAndSortingRepository<f1team, Long>, Jpa
     public List<f1team> queryf1teamByTeamName(
             @Param("team_name") String team_name);
 
+    @Query(value = "select * from f1_team a where a.is_current = :isCur order by a.team_id",nativeQuery = true)
+    public List<f1team> queryAllf1teamByIsCur(@Param("isCur")String isCur);
+
     @Query(value = "select * from f1_team a order by a.team_id",nativeQuery = true)
     public List<f1team> queryAllf1team();
 }

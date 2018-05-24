@@ -29,11 +29,13 @@ public class F1TeamController {
 
 
 
-    @ApiOperation("获取所有的F1车队信息")
+    @ApiOperation("根据参数，获取当前或者历史所有的F1车队信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "isCur", paramType = "query", dataTypeClass = String.class, required = false, value = "isCur") })
     @ApiResponse(code = 200, message = "接口有返回", response = List.class)
     @RequestMapping(method = RequestMethod.GET, value = "/allinfo")
-    public List<f1team> getAllF1Team(){
-        return f1teamService.getAllF1TeamInfo();
+    public List<f1team> getAllF1Team(@RequestParam(name = "isCur") String isCur){
+        return f1teamService.getAllF1TeamInfo(isCur);
     }
 
     @ApiOperation("增加F1车队信息")
